@@ -24,7 +24,36 @@ void cadastrarTarefa(char Dados[][4][Tamanho]) {
         quantidade++;
     } else {
         printf("Limite de tarefas atingido.\n");
+        return;
     }
+}
+void listarTarefas(char Dados[][4][Tamanho]) {
+    if (quantidade == 0) {
+        printf("Nenhuma tarefa cadastrada.\n");
+        return;
+    }
+    printf("Lista de Tarefas:\n");
+    for (int i = 0; i < quantidade; i++) {
+        printf("%d. Titulo: %s, Descricao: %s, Prioridade: %s, Status: %s\n", 
+        i + 1, Dados[i][0], Dados[i][1], Dados[i][2], Dados[i][3]);
+    }
+}
+
+void editarTarefa(char Dados[][4][Tamanho], int indice) {
+    printf("Editar Tarefa %d:\n", indice + 1);
+    printf("Novo Titulo: ", Dados[indice][0]);
+    fgets(Dados[indice][0], Tamanho, stdin);
+    strtok(Dados[indice][0], "\n");
+    printf("Nova Descricao: ");
+    fgets(Dados[indice][1], Tamanho, stdin);
+    strtok(Dados[indice][1], "\n");
+    printf("Nova Prioridade (Alta/Media/Baixa): ");
+    fgets(Dados[indice][2], Tamanho, stdin);
+    strtok(Dados[indice][2], "\n");
+    printf("Novo Status (Pendente/Concluida): ");
+    fgets(Dados[indice][3], Tamanho, stdin);
+    strtok(Dados[indice][3], "\n");
+    printf("Tarefa editada com sucesso!\n");
 }
 int main(){
     char Dados[Maximo][4][Tamanho];
