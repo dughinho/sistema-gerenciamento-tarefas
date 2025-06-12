@@ -41,7 +41,7 @@ void listarTarefas(char Dados[][4][Tamanho]) {
 
 void editarTarefa(char Dados[][4][Tamanho], int indice) {
     printf("Editar Tarefa %d:\n", indice + 1);
-    printf("Novo Titulo: ", Dados[indice][0]);
+    printf("Novo Titulo: ");
     fgets(Dados[indice][0], Tamanho, stdin);
     strtok(Dados[indice][0], "\n");
     printf("Nova Descricao: ");
@@ -54,6 +54,29 @@ void editarTarefa(char Dados[][4][Tamanho], int indice) {
     fgets(Dados[indice][3], Tamanho, stdin);
     strtok(Dados[indice][3], "\n");
     printf("Tarefa editada com sucesso!\n");
+}
+
+void excluirTarefa(char Dados[][4][Tamanho], int indice) {
+    for(int i = indice; i < quantidade -1; i++){
+        for(int j = 0; j < 4; j++){
+            strcpy(Dados[i][j], Dados[i + 1][j]);
+        }
+        quantidade--;
+        printf("Tarefa excluida com sucesso!\n");
+    }
+}
+void salvarTarefasEmArquivo(char Dados[][4][Tamanho]) {
+    FILE *arquivo = fopen("tarefas.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+        return;
+    }
+    for (int i = 0; i < quantidade; i++) {
+        fprintf(arquivo, "Titulo: %s\nDescricao: %s\nPrioridade: %s\nStatus: %s\n\n", 
+                Dados[i][0], Dados[i][1], Dados[i][2], Dados[i][3]);
+    }
+    fclose(arquivo);
+    printf("Tarefas salvas com sucesso em tarefas.txt!\n");
 }
 int main(){
     char Dados[Maximo][4][Tamanho];
